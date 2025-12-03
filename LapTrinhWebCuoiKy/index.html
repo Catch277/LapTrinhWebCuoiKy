@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Showroom ÔTô</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="./images/favicon.jpg" />
+  </head>
+  <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Showroom ÔTô</a>
+        <!-- <img src="./images/LOGO_HUFLIT.png" alt="HUFLIT" /> -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#home">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#cars">Danh sách xe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Liên hệ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html">
+                Giỏ hàng (<span id="cart-count">0</span>)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Banner -->
+    <section id="home" class="bg-light text-center p-5">
+      <h1>Chào mừng đến với Showroom ÔTô</h1>
+      <p>Chúng tôi cung cấp những mẫu xe mới nhất với giá tốt nhất.</p>
+    </section>
+
+    <!-- Sidebar bộ lọc -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="filterSidebar">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Bộ lọc xe</h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="filter-form" class="row g-3">
+          <!-- Sắp xếp -->
+          <div class="col-12">
+            <div class="filter-title">Sắp xếp</div>
+            <select id="sort-option" class="form-select">
+              <option value="">Mặc định</option>
+              <option value="az">A &rarr; Z</option>
+              <option value="za">Z &rarr; A</option>
+              <option value="price-asc">Giá thấp &rarr; cao</option>
+              <option value="price-desc">Giá cao &rarr; thấp</option>
+            </select>
+          </div>
+          <!-- Giá -->
+          <div class="col-12">
+            <div class="filter-title">Khoảng giá (VNĐ)</div>
+            <div class="d-flex">
+              <input
+                type="number"
+                class="form-control me-2"
+                placeholder="Từ"
+                id="price-min"
+              />
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Đến"
+                id="price-max"
+              />
+            </div>
+          </div>
+
+          <!-- Hãng xe -->
+          <div class="col-12">
+            <div class="filter-title">Hãng xe</div>
+            <div class="filter-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Mercedes-Benz"
+                  id="brand-mercedes"
+                /><label class="form-check-label" for="brand-mercedes"
+                  >Mercedes-Benz</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Tesla"
+                  id="brand-tesla"
+                /><label class="form-check-label" for="brand-tesla"
+                  >Tesla</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Toyota"
+                  id="brand-toyota"
+                /><label class="form-check-label" for="brand-toyota"
+                  >Toyota</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Porsche"
+                  id="brand-porsche"
+                /><label class="form-check-label" for="brand-porsche"
+                  >Porsche</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="BMW"
+                  id="brand-bmw"
+                /><label class="form-check-label" for="brand-bmw">BMW</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Volkswagen"
+                  id="brand-vw"
+                /><label class="form-check-label" for="brand-vw"
+                  >Volkswagen</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Honda"
+                  id="brand-honda"
+                /><label class="form-check-label" for="brand-honda"
+                  >Honda</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Hyundai"
+                  id="brand-hyundai"
+                /><label class="form-check-label" for="brand-hyundai"
+                  >Hyundai</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Ford"
+                  id="brand-ford"
+                /><label class="form-check-label" for="brand-ford">Ford</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Chevrolet"
+                  id="brand-chevrolet"
+                /><label class="form-check-label" for="brand-chevrolet"
+                  >Chevrolet</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Kiểu dáng -->
+          <div class="col-12">
+            <div class="filter-title">Kiểu dáng</div>
+            <div class="filter-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Sedan"
+                  id="style-sedan"
+                /><label class="form-check-label" for="style-sedan"
+                  >Sedan</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="SUV"
+                  id="style-suv"
+                /><label class="form-check-label" for="style-suv">SUV</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Hatchback"
+                  id="style-hatchback"
+                /><label class="form-check-label" for="style-hatchback"
+                  >Hatchback</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Coupe"
+                  id="style-coupe"
+                /><label class="form-check-label" for="style-coupe"
+                  >Coupe</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Convertible"
+                  id="style-convertible"
+                /><label class="form-check-label" for="style-convertible"
+                  >Convertible</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Pickup"
+                  id="style-pickup"
+                /><label class="form-check-label" for="style-pickup"
+                  >Pickup</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Màu sắc (checkbox) -->
+          <div class="col-12">
+            <div class="filter-title">Màu sắc</div>
+            <div class="filter-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Đen"
+                  id="color-black"
+                /><label class="form-check-label" for="color-black">Đen</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Trắng"
+                  id="color-white"
+                /><label class="form-check-label" for="color-white"
+                  >Trắng</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Đỏ"
+                  id="color-red"
+                /><label class="form-check-label" for="color-red">Đỏ</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Xanh"
+                  id="color-blue"
+                /><label class="form-check-label" for="color-blue">Xanh</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Bạc"
+                  id="color-silver"
+                /><label class="form-check-label" for="color-silver">Bạc</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Vàng"
+                  id="color-yellow"
+                /><label class="form-check-label" for="color-yellow"
+                  >Vàng</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Phong cách  -->
+          <div class="col-12">
+            <div class="filter-title">Phong cách</div>
+            <div class="filter-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Thể thao"
+                  id="design-sport"
+                />
+                <label class="form-check-label" for="design-sport"
+                  >Thể thao</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Sang trọng"
+                  id="design-luxury"
+                />
+                <label class="form-check-label" for="design-luxury"
+                  >Sang trọng</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Gia đình"
+                  id="design-family"
+                />
+                <label class="form-check-label" for="design-family"
+                  >Gia đình</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Địa hình"
+                  id="design-offroad"
+                />
+                <label class="form-check-label" for="design-offroad"
+                  >Địa hình</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Nút hành động -->
+          <div class="col-12 mt-3 d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Lọc xe</button>
+            <button type="button" class="btn btn-secondary" id="reset-filters">
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Danh sách xe -->
+    <section id="cars" class="container my-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Danh sách xe</h2>
+        <div class="d-flex align-items-center gap-3">
+          <p id="car-count" class="mb-0 text-muted"></p>
+          <button
+            class="btn btn-filter"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterSidebar"
+          >
+            Bộ lọc xe
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <!-- renderCars sẽ thay thế nội dung này -->
+      </div>
+    </section>
+
+    <!-- Đăng ký nhận tin & Liên hệ nhanh -->
+    <section id="contact" class="bg-light py-4 border-top">
+      <div class="container">
+        <div class="row">
+          <!-- Đăng ký nhận tin -->
+          <div class="col-md-6 mb-4">
+            <h5 class="mb-3">Cam kết dịch vụ</h5>
+            <ul class="list-unstyled">
+              <li>✅ Tư vấn tận tâm, báo giá chuẩn</li>
+              <li>✅ Giao xe tận nơi toàn quốc</li>
+              <li>✅ Hỗ trợ trả góp lãi suất ưu đãi</li>
+              <li>✅ Bảo hành chính hãng, bảo dưỡng định kỳ</li>
+            </ul>
+            <h5 class="mb-3">Đăng ký nhận tin khuyến mãi</h5>
+            <form action="#contact" method="post" id="newsletter-form">
+              <div class="input-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Nhập email của bạn"
+                  required
+                />
+                <button class="btn btn-danger" type="submit">Nhận tin</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Liên hệ nhanh -->
+          <div class="col-md-6 mb-4">
+            <h5 class="mb-3">Liên hệ nhanh</h5>
+            <form id="quick-contact-form">
+              <div class="mb-2 position-relative">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Tên của bạn"
+                  required
+                />
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
+                  onclick="this.previousElementSibling.value=''"
+                >
+                  <i class="bi bi-x-circle"></i>
+                </button>
+              </div>
+              <div class="mb-2 position-relative">
+                <input
+                  type="tel"
+                  class="form-control"
+                  placeholder="Số điện thoại"
+                  required
+                />
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
+                  onclick="this.previousElementSibling.value=''"
+                >
+                  <i class="bi bi-x-circle"></i>
+                </button>
+              </div>
+              <div class="mb-2">
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  placeholder="Nội dung"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-secondary w-100">
+                Gửi yêu cầu
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-4 pb-3">
+      <div class="container">
+        <div class="row">
+          <!-- Cột 1: Chính sách & Tin tức -->
+          <div class="col-md-3 mb-4">
+            <h5>Chính sách & Tin tức</h5>
+            <a href="#contact" class="text-white text-decoration-none">
+              <p>🛠️ Miễn phí bảo hành trong vòng 3 năm hoặc 100.000 km</p>
+            </a>
+            <a href="#contact" class="text-white text-decoration-none">
+              <p>🔧 Hỗ trợ kỹ thuật 24/7 tại tất cả các chi nhánh</p>
+            </a>
+            <a href="#contact" class="text-white text-decoration-none">
+              <p>📰 Porsche 911 Turbo 2025 đã có mặt tại showroom</p>
+            </a>
+            <a href="#contact" class="text-white text-decoration-none">
+              <p>
+                🎁 Ưu đãi tháng 12 giảm ngay 5% dành cho xe thể thao các dòng
+              </p>
+            </a>
+          </div>
+
+          <!-- Cột 2: Liên hệ + Mạng xã hội -->
+          <div class="col-md-3 mb-4">
+            <h5>Liên hệ</h5>
+            <p>
+              📞 Hotline:
+              <a href="tel:+84912345678" class="text-white text-decoration-none"
+                >(+84) 912 345 678</a
+              >
+            </p>
+            <p>
+              📧 Email:
+              <a
+                href="mailto:showroomotovn@gmail.com"
+                class="text-white text-decoration-none"
+                >showroomotovn@gmail.com</a
+              >
+            </p>
+            <p>🕒 Giờ mở cửa: 8:00 – 19:00 (Thứ 2 – Chủ nhật)</p>
+
+            <h6 class="mt-4">Mạng xã hội</h6>
+            <div class="d-flex gap-3 mt-2">
+              <a href="#contact" class="text-white fs-4"
+                ><i class="bi bi-facebook"></i
+              ></a>
+              <a href="#contact" class="text-white fs-4"
+                ><i class="bi bi-instagram"></i
+              ></a>
+              <a href="#contact" class="text-white fs-4"
+                ><i class="bi bi-youtube"></i
+              ></a>
+              <a href="#contact" class="text-white fs-4"
+                ><i class="bi bi-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Cột 3: Chi nhánh -->
+          <div class="col-md-3 mb-4">
+            <h5>Chi nhánh</h5>
+            <p>
+              🏢 Quận 1: 136 Nam Kỳ Khởi Nghĩa, phường Sài Gòn, TP. Hồ Chí Minh
+              <a
+                href="https://maps.google.com/?q=136+Nam+Kỳ+Khởi+Nghĩa"
+                target="_blank"
+                class="text-info ms-2"
+                ><i class="bi bi-geo-alt-fill"></i
+              ></a>
+            </p>
+            <p>
+              🏢 Quận 7: 44 Tân Mỹ, phường Tân Thuận, TP. Hồ Chí Minh
+              <a
+                href="https://maps.google.com/?q=44+Tân+Mỹ+Quận+7"
+                target="_blank"
+                class="text-info ms-2"
+                ><i class="bi bi-geo-alt-fill"></i
+              ></a>
+            </p>
+            <p>
+              🏢 Tân Bình: 356 Cộng Hòa, phường Tân Bình, TP. Hồ Chí Minh
+              <a
+                href="https://maps.google.com/?q=356+Cộng+Hòa+Tân+Bình"
+                target="_blank"
+                class="text-info ms-2"
+                ><i class="bi bi-geo-alt-fill"></i
+              ></a>
+            </p>
+          </div>
+
+          <!-- Cột 4: Bản đồ -->
+          <div class="col-md-3 mb-4">
+            <h5>Vị trí của Showroom</h5>
+            <div class="ratio ratio-4x3">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.123456789!2d106.700000!3d10.776000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f123456789%3A0xabcdef123456789!2zMTM2IE5hbSBLw70gS2hpIE5naGnDqSwgUXXhuq1uIDEsIFBIQywgVFAuIEjhu5MgQ2jDrSBNaW5o!5e0!3m2!1svi!2s!4v1700000000000"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-light" />
+        <p class="text-center mb-0">
+          &copy; 2025 Showroom ÔTô. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS + Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Toast container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast align-items-center text-bg-primary border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body" id="toast-message">
+            <!-- Nội dung thông báo -->
+          </div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

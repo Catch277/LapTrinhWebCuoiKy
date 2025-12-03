@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+      .checkout-box {
+        max-width: 600px;
+        margin: 50px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      .qr-box {
+        background: #e9ecef;
+        border: 1px solid #ced4da;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+      }
+      .qr-box img {
+        max-width: 250px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="checkout-box">
+      <h3 class="mb-4 text-center">Thông tin thanh toán</h3>
+      <form id="checkout-form">
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email của bạn</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Nhập email"
+            required
+          />
+        </div>
+
+        <!-- Phương thức thanh toán -->
+        <div class="mb-3">
+          <label for="paymentMethod" class="form-label"
+            >Phương thức thanh toán</label
+          >
+          <select class="form-select" id="paymentMethod" required>
+            <option value="">-- Chọn phương thức --</option>
+            <option value="bank">Chuyển khoản ngân hàng</option>
+            <option value="cod">Thanh toán khi nhận xe</option>
+          </select>
+        </div>
+
+        <!-- QR code ngân hàng -->
+        <div id="qr-section" class="qr-box d-none">
+          <p>Tổng tiền cần thanh toán: <span id="checkout-amount"></span></p>
+          <img id="qr-code" src="" alt="QR Code Ngân hàng" class="img-fluid" />
+        </div>
+
+        <div class="d-grid gap-3 mt-4">
+          <button type="submit" class="btn btn-primary">
+            Xác nhận thanh toán
+          </button>
+          <a href="cart.html" class="btn btn-secondary">Quay về giỏ hàng</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Hàm tạo QR động
+      function taoQRCode(bankCode, accountNumber, amount, info) {
+        return `https://img.vietqr.io/image/${bankCode}-${accountNumber}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(
+          info
+        )}`;
+      }
+
+      window.onload = function () {
+        const total = localStorage.getItem("checkoutTotal") || 0;
+        const bankCode = "VCB"; // ví dụ: MBBank
+        const accountNumber = "1049799896"; // thay bằng số tài khoản thật
+        const info = "Thanh toan don hang xe";
+
+        document
+          .getElementById("paymentMethod")
+          .addEventListener("change", function () {
+            if (this.value === "bank") {
+              const qrUrl = taoQRCode(bankCode, accountNumber, total, info);
+              document.getElementById("qr-code").src = qrUrl;
+              document.getElementById("checkout-amount").textContent =
+                parseInt(total).toLocaleString() + " VNĐ";
+              document.getElementById("qr-section").classList.remove("d-none");
+            } else {
+              document.getElementById("qr-section").classList.add("d-none");
+            }
+          });
+
+        // Ngăn reload form
+        document
+          .getElementById("checkout-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            ShowToast("Đơn hàng đã được ghi nhận! Cảm ơn bạn.", "success");
+          });
+      };
+    </script>
+  </body>
+</html>
